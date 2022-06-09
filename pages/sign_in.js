@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup';
+import axios from 'axios';
 
 import { errorHelper } from '../utils/tools'
 
@@ -13,7 +14,7 @@ const SignIn = () => {
     const [loading, setLoading] = useState(false);
 
     const formik= useFormik({
-        initialValues:{email:'',password:''},
+        initialValues:{email:'francis@gmail.com',password:'password123'},
         validationSchema:Yup.object({
             email:Yup.string()
             .required('Sorry the email is required')
@@ -22,10 +23,22 @@ const SignIn = () => {
             .required('Sorry the password is required')
         }),
         onSubmit:(values)=>{
-            console.log(values)
+            submitForm(values)
         }
     })
 
+
+    const submitForm = (values) => {
+        if(formType){
+            // register
+            axios.post('/api/auth',values)
+            .then(response => {
+                console.log(response.data)
+            })
+        } else {
+            // sign in
+        }
+    }
 
     const handleFormType = ()=>{
         setFormType(!formType)
