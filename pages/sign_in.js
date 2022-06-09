@@ -34,6 +34,8 @@ const SignIn = () => {
             axios.post('/api/auth',values)
             .then(response => {
                 console.log(response.data)
+            }).catch(error=>{
+                console.log(error.response.data)
             })
         } else {
             // sign in
