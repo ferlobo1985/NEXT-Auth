@@ -8,6 +8,7 @@ import { errorHelper } from '../utils/tools'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
+import { signIn } from 'next-auth/react'
 
 const SignIn = () => {
     const [formType, setFormType] = useState(false);
@@ -28,7 +29,7 @@ const SignIn = () => {
     })
 
 
-    const submitForm = (values) => {
+    const submitForm = async(values) => {
         if(formType){
             // register
             axios.post('/api/auth',values)
@@ -39,6 +40,13 @@ const SignIn = () => {
             })
         } else {
             // sign in
+            const result = await signIn('credentials',{
+                redirect:false,
+                email: values.email,
+                password: values.password,
+                callbackUrl:'/dashboard'
+            });
+            console.log(result)
         }
     }
 
