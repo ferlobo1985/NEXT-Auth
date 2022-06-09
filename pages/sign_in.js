@@ -44,9 +44,9 @@ const SignIn = () => {
                 redirect:false,
                 email: values.email,
                 password: values.password,
-                callbackUrl:'/dashboard'
+                //callbackUrl:'/dashboard'
             });
-            console.log(result)
+            console.log(result.error)
         }
     }
 
